@@ -10,6 +10,11 @@
  * Creates a simple pointillist effect using ellipses colored
  * according to pixels in an image. 
  */
+import processing.serial.*;
+
+Serial plotPort;  // Create object from Serial class
+int val;        // Data received from the serial port
+
 
 PImage img;
 int smallPoint, largePoint;
@@ -22,10 +27,13 @@ void setup() {
   imageMode(CENTER);
   noStroke();
   background(255);
+  String portName = Serial.list()[0];//set to proper comport
+  plotPort = new Serial(this, portName, 9600);
 }
 
 void draw() { 
   //float pointillize = map(mouseX, 0, width, smallPoint, largePoint);
+  //serial send plotPort.write('H'); 
   float pointillize = random(smallPoint, largePoint); //<>//
   for(int y=1; y<=height; y=y+(int(random(y-largePoint,y+largePoint)))){
     for(int i=0;i<150;i++){
